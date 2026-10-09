@@ -1,0 +1,56 @@
+@use 'variables' as v;
+
+:root {
+  --color-bg-base: #{v.$color-bg-base};
+  --color-bg-surface: #{v.$color-bg-surface};
+  --color-bg-card: #{v.$color-bg-card};
+  --color-bg-elevated: #{v.$color-bg-elevated};
+  --color-border: #{v.$color-border};
+  --color-border-light: #{v.$color-border-light};
+  --color-primary: #{v.$color-primary};
+  --color-primary-hover: #{v.$color-primary-hover};
+  --color-accent: #{v.$color-accent};
+  --color-success: #{v.$color-success};
+  --color-warning: #{v.$color-warning};
+  --color-danger: #{v.$color-danger};
+  --color-text-primary: #{v.$color-text-primary};
+  --color-text-secondary: #{v.$color-text-secondary};
+  --color-text-muted: #{v.$color-text-muted};
+  --color-muscle-default: #{v.$color-muscle-default};
+  --color-muscle-selected: #{v.$color-muscle-selected};
+  --color-muscle-hover: #{v.$color-muscle-hover};
+  --color-muscle-secondary: #{v.$color-muscle-secondary};
+  --color-difficulty-beginner: #{v.$color-difficulty-beginner};
+  --color-difficulty-intermediate: #{v.$color-difficulty-intermediate};
+  --color-difficulty-advanced: #{v.$color-difficulty-advanced};
+  --nav-width: #{v.$nav-width};
+  --nav-height-mobile: #{v.$nav-height-mobile};
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+body {
+  background: v.$color-bg-base;
+  color: v.$color-text-primary;
+  font-family: v.$font-sans;
+  font-size: v.$text-base;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a { color: v.$color-primary; text-decoration: none; &:hover { text-decoration: underline; } }
+
+button { font-family: inherit; }
+
+input, select, textarea { font-family: inherit; }
+
+h1 { font-size: v.$text-3xl; font-weight: 700; line-height: 1.2; }
+h2 { font-size: v.$text-2xl; font-weight: 700; line-height: 1.3; }
+h3 { font-size: v.$text-xl; font-weight: 600; }
+h4 { font-size: v.$text-lg; font-weight: 600; }
+h5 { font-size: v.$text-md; font-weight: 600; }
+h6 { font-size: v.$text-base; font-weight: 600; }
+
+p { color: v.$color-text-secondary; }

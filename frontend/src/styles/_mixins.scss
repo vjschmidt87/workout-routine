@@ -1,0 +1,93 @@
+@use 'variables' as v;
+
+@mixin flex($dir: row, $align: center, $justify: flex-start, $gap: 0) {
+  display: flex;
+  flex-direction: $dir;
+  align-items: $align;
+  justify-content: $justify;
+  @if $gap != 0 { gap: $gap; }
+}
+
+@mixin card {
+  background: v.$color-bg-card;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-lg;
+  padding: v.$space-lg;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+  &:hover { border-color: v.$color-border-light; box-shadow: v.$shadow-md; }
+}
+
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-sm;
+  padding: 10px v.$space-md;
+  border-radius: v.$radius-md;
+  font-size: v.$text-sm;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background 150ms ease, opacity 150ms ease, transform 100ms ease;
+  &:active { transform: scale(0.97); }
+  &:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background: v.$color-primary;
+  color: #fff;
+  &:not(:disabled):hover { background: v.$color-primary-hover; }
+}
+
+@mixin button-ghost {
+  @include button-base;
+  background: transparent;
+  color: v.$color-text-secondary;
+  border: 1px solid v.$color-border;
+  &:not(:disabled):hover { border-color: v.$color-border-light; color: v.$color-text-primary; background: v.$color-bg-elevated; }
+}
+
+@mixin button-danger {
+  @include button-base;
+  background: rgba(v.$color-danger, 0.15);
+  color: v.$color-danger;
+  border: 1px solid rgba(v.$color-danger, 0.3);
+  &:not(:disabled):hover { background: rgba(v.$color-danger, 0.25); }
+}
+
+@mixin input-base {
+  background: v.$color-bg-elevated;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-md;
+  color: v.$color-text-primary;
+  font-size: v.$text-base;
+  padding: 10px v.$space-md;
+  transition: border-color 150ms ease;
+  outline: none;
+  width: 100%;
+  &::placeholder { color: v.$color-text-muted; }
+  &:focus { border-color: v.$color-primary; }
+}
+
+@mixin chip($color: null) {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: v.$radius-full;
+  font-size: v.$text-xs;
+  font-weight: 600;
+  letter-spacing: .03em;
+  @if $color { background: rgba($color, 0.15); color: $color; }
+  @else { background: v.$color-bg-elevated; color: v.$color-text-secondary; border: 1px solid v.$color-border; }
+}
+
+@mixin mobile {
+  @media (max-width: 768px) { @content; }
+}
+
+@mixin scrollbar {
+  &::-webkit-scrollbar { width: 6px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background: v.$color-border; border-radius: v.$radius-full; }
+}

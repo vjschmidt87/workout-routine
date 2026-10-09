@@ -1,0 +1,129 @@
+<div class="page">
+  <div class="page__header">
+    <h1 class="page__title">{{ tr.t('builder.title') }}</h1>
+    <div class="step-indicators">
+      @for (s of [1, 2, 3]; track s) {
+        <div class="step-dot" [class.active]="step() >= s" [class.current]="step() === s">{{ s }}</div>
+      }
+    </div>
+  </div>
+
+  @if (error()) {
+    <div class="error-banner">{{ error() }}</div>
+  }
+
+  <!-- STEP 1 -->
+  @if (step() === 1) {
+    <div class="builder-step">
+      <div class="step-header">
+        <h2>{{ tr.t('builder.step1.title') }}</h2>
+        <p>{{ tr.t('builder.step1.subtitle') }}</p>
+      </div>
+      <div class="step1-layout">
+        <app-muscle-map [selectedMuscles]="selectedMuscles()" (muscleToggle)="toggleMuscle($event)" />
+        <div class="step1-side">
+          <div class="selected-chips">
+            @for (m of selectedMuscles(); track m) {
+              <button class="muscle-chip" (click)="toggleMuscle(m)">{{ tr.t('muscle.' + m) }} ×</button>
+            }
+          </div>
+          <button class="btn-primary" (click)="goToStep2()" [disabled]="!selectedMuscles().length">
+            {{ tr.t('builder.next') }} →
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- STEP 2 -->
+  @if (step() === 2) {
+    <div class="builder-step">
+      <div class="step-header">
+        <h2>{{ tr.t('builder.step2.title') }}</h2>
+        <p>{{ tr.t('builder.step2.subtitle') }}</p>
+        <label class="equipment-toggle">
+          <input type="checkbox" [checked]="useMyEquipment()" (change)="useMyEquipment.set($any($event.target).checked)" />
+          {{ tr.t('builder.use-my-equipment') }}
+        </label>
+      </div>
+      <div class="exercises-grid">
+        @if (loadingExercises()) {
+          <p>{{ tr.t('common.loading') }}</p>
+        } @else {
+          @for (ex of filteredExercises(); track ex.key) {
+            <app-exercise-card
+              [exercise]="ex"
+              [selected]="isExerciseSelected(ex.key)"
+              [showAddButton]="true"
+              (addExercise)="toggleExercise($event)" />
+          }
+        }
+      </div>
+      <div class="step-actions">
+        <button class="btn-ghost" (click)="step.set(1)">← {{ tr.t('builder.back') }}</button>
+        <span class="selection-count">{{ selectedExercises().length }} {{ tr.t('builder.exercises-selected') }}</span>
+        <button class="btn-primary" (click)="goToStep3()" [disabled]="!selectedExercises().length">
+          {{ tr.t('builder.next') }} →
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- STEP 3 -->
+  @if (step() === 3) {
+    <div class="builder-step">
+      <div class="step-header">
+        <h2>{{ tr.t('builder.step3.title') }}</h2>
+        <p>{{ tr.t('builder.step3.subtitle') }}</p>
+      </div>
+
+      <div class="form-group">
+        <label>{{ tr.t('builder.routine-name') }}</label>
+        <input type="text" [value]="routineName()" (input)="routineName.set($any($event.target).value)"
+               placeholder="My Routine" />
+      </div>
+      <div class="form-group">
+        <label>{{ tr.t('builder.routine-description') }}</label>
+        <input type="text" [value]="routineDescription()" (input)="routineDescription.set($any($event.target).value)"
+               placeholder="Optional description" />
+      </div>
+
+      <div class="exercises-config">
+        @for (e of selectedExercises(); track e.exerciseKey) {
+          <div class="config-row">
+            <span class="config-row__name">{{ exerciseName(e) }}</span>
+            <div class="config-row__fields">
+              <label class="field-label">
+                {{ tr.t('builder.sets') }}
+                <input type="number" min="1" max="20" [value]="e.sets"
+                       (input)="updateField(e.exerciseKey, 'sets', $any($event.target).value)" />
+              </label>
+              <label class="field-label">
+                {{ tr.t('builder.reps') }}
+                <input type="number" min="1" max="100" [value]="e.reps"
+                       (input)="updateField(e.exerciseKey, 'reps', $any($event.target).value)" />
+              </label>
+              <label class="field-label">
+                {{ tr.t('builder.weight-kg') }}
+                <input type="number" min="0" step="0.5" [value]="e.weightKg ?? ''"
+                       (input)="updateField(e.exerciseKey, 'weightKg', $any($event.target).value)" />
+              </label>
+              <label class="field-label">
+                {{ tr.t('builder.rest-sec') }}
+                <input type="number" min="0" step="5" [value]="e.restSeconds"
+                       (input)="updateField(e.exerciseKey, 'restSeconds', $any($event.target).value)" />
+              </label>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="step-actions">
+        <button class="btn-ghost" (click)="step.set(2)">← {{ tr.t('builder.back') }}</button>
+        <button class="btn-primary" (click)="save()" [disabled]="saving()">
+          {{ saving() ? tr.t('common.loading') : tr.t('builder.save') }}
+        </button>
+      </div>
+    </div>
+  }
+</div>

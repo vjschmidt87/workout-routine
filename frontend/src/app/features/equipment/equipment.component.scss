@@ -1,0 +1,85 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.page { padding: v.$space-xl v.$space-lg; }
+
+.equipment-sections { @include m.flex(column, stretch, flex-start, v.$space-2xl); }
+
+.equipment-section {
+  h2 {
+    font-size: v.$text-xl;
+    margin-bottom: v.$space-lg;
+    color: v.$color-text-secondary;
+    font-weight: 600;
+  }
+}
+
+.equipment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: v.$space-md;
+}
+
+.equipment-item {
+  @include m.flex(column, center, flex-start);
+  gap: 0;
+  padding: 0;
+  background: v.$color-bg-card;
+  border: 2px solid v.$color-border;
+  border-radius: v.$radius-lg;
+  cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease, transform 100ms ease;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+
+  &:hover {
+    border-color: v.$color-border-light;
+    transform: translateY(-2px);
+  }
+
+  &:active { transform: translateY(0); }
+
+  &.owned {
+    border-color: v.$color-success;
+    background: rgba(v.$color-success, 0.06);
+  }
+
+  &__img {
+    width: 100%;
+    background: v.$color-bg-elevated;
+    padding: v.$space-lg v.$space-md;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid v.$color-border;
+    transition: background 150ms ease;
+
+    .owned & { background: rgba(v.$color-success, 0.08); }
+
+    svg {
+      width: 100%;
+      height: auto;
+      max-height: 64px;
+      display: block;
+    }
+  }
+
+  &__name {
+    font-size: v.$text-sm;
+    font-weight: 600;
+    color: v.$color-text-primary;
+    padding: v.$space-sm v.$space-sm 2px;
+    line-height: 1.3;
+  }
+
+  &__check {
+    font-size: v.$text-xs;
+    font-weight: 700;
+    padding-bottom: v.$space-sm;
+    color: v.$color-text-muted;
+    transition: color 150ms ease;
+
+    .owned & { color: v.$color-success; }
+  }
+}

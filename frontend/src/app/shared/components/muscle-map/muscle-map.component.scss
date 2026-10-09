@@ -1,0 +1,51 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.muscle-map {
+  @include m.flex(column, center, flex-start, v.$space-md);
+
+  &__tabs {
+    @include m.flex(row, center, center, v.$space-xs);
+    background: v.$color-bg-elevated;
+    padding: 4px;
+    border-radius: v.$radius-full;
+    align-self: center;
+  }
+
+  &__tab {
+    @include m.button-base;
+    padding: 6px v.$space-md;
+    border-radius: v.$radius-full;
+    font-size: v.$text-sm;
+    color: v.$color-text-secondary;
+    background: transparent;
+
+    &.active {
+      background: v.$color-primary;
+      color: #fff;
+    }
+  }
+
+  &__svg-wrap {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__svg {
+    width: 160px;
+    height: auto;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+  }
+}
+
+.muscle-path {
+  fill: v.$color-muscle-default;
+  stroke: v.$color-bg-surface;
+  stroke-width: 1.5;
+  cursor: pointer;
+  transition: fill 150ms ease;
+
+  &:hover { fill: v.$color-muscle-hover; }
+  &.selected { fill: v.$color-muscle-selected; }
+}

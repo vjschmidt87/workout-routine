@@ -1,0 +1,57 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.page { padding: v.$space-xl v.$space-lg; }
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: v.$space-xl;
+
+  @include m.mobile { grid-template-columns: 1fr; }
+
+  h2 { font-size: v.$text-xl; margin-bottom: v.$space-lg; }
+}
+
+.active-card {
+  @include m.card;
+  @include m.flex(column, flex-start, flex-start, v.$space-md);
+
+  &__badge {
+    @include m.chip(v.$color-success);
+  }
+
+  h3 { font-size: v.$text-xl; font-weight: 700; margin: 0; }
+  p { color: v.$color-text-secondary; }
+  &__count { font-size: v.$text-sm; color: v.$color-text-muted; }
+}
+
+.btn-primary { @include m.button-primary; }
+
+.empty-state {
+  @include m.card;
+  @include m.flex(column, center, center, v.$space-md);
+  text-align: center;
+  padding: v.$space-2xl;
+  p { color: v.$color-text-secondary; margin-bottom: 0; }
+}
+
+.routine-list { @include m.flex(column, stretch, flex-start, v.$space-sm); }
+
+.routine-item {
+  @include m.flex(row, center, space-between, v.$space-md);
+  padding: v.$space-md;
+  background: v.$color-bg-card;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-md;
+  text-decoration: none;
+  color: v.$color-text-primary;
+  transition: border-color 150ms ease;
+
+  &:hover { border-color: v.$color-border-light; text-decoration: none; }
+
+  &__name { font-weight: 600; }
+  &__count { font-size: v.$text-sm; color: v.$color-text-muted; margin-left: auto; margin-right: v.$space-sm; }
+}
+
+.badge-active { @include m.chip(v.$color-success); }

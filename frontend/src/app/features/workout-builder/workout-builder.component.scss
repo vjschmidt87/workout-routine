@@ -1,0 +1,150 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.page {
+  padding: v.$space-xl v.$space-lg;
+  max-width: v.$content-max-width;
+
+  &__header {
+    @include m.flex(row, center, space-between);
+    margin-bottom: v.$space-xl;
+  }
+}
+
+.step-indicators {
+  @include m.flex(row, center, center, v.$space-sm);
+}
+
+.step-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  @include m.flex(row, center, center);
+  font-size: v.$text-sm;
+  font-weight: 700;
+  background: v.$color-bg-elevated;
+  color: v.$color-text-muted;
+  border: 2px solid transparent;
+  transition: all 200ms ease;
+
+  &.active { background: rgba(v.$color-primary, 0.15); color: v.$color-primary; }
+  &.current { border-color: v.$color-primary; }
+}
+
+.error-banner {
+  background: rgba(v.$color-danger, 0.12);
+  border: 1px solid rgba(v.$color-danger, 0.3);
+  color: v.$color-danger;
+  padding: v.$space-sm v.$space-md;
+  border-radius: v.$radius-md;
+  margin-bottom: v.$space-lg;
+  font-size: v.$text-sm;
+}
+
+.builder-step { @include m.flex(column, stretch, flex-start, v.$space-xl); }
+
+.step-header {
+  @include m.flex(column, flex-start, flex-start, v.$space-xs);
+  h2 { font-size: v.$text-2xl; margin: 0; }
+  p { color: v.$color-text-secondary; margin: 0; }
+}
+
+.step1-layout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: v.$space-xl;
+  align-items: flex-start;
+
+  @include m.mobile { grid-template-columns: 1fr; }
+}
+
+.step1-side {
+  @include m.flex(column, flex-start, flex-start, v.$space-md);
+  padding-top: v.$space-xl;
+}
+
+.selected-chips {
+  @include m.flex(row, center, flex-start);
+  flex-wrap: wrap;
+  gap: v.$space-xs;
+  min-height: 32px;
+}
+
+.muscle-chip {
+  @include m.chip(v.$color-primary);
+  cursor: pointer;
+  border: none;
+}
+
+.equipment-toggle {
+  @include m.flex(row, center, flex-start, v.$space-sm);
+  font-size: v.$text-sm;
+  color: v.$color-text-secondary;
+  cursor: pointer;
+
+  input { cursor: pointer; accent-color: v.$color-primary; width: 16px; height: 16px; }
+}
+
+.exercises-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: v.$space-md;
+}
+
+.step-actions {
+  @include m.flex(row, center, space-between);
+  padding-top: v.$space-lg;
+  border-top: 1px solid v.$color-border;
+}
+
+.selection-count {
+  font-size: v.$text-sm;
+  color: v.$color-text-secondary;
+}
+
+.form-group {
+  @include m.flex(column, flex-start, flex-start, v.$space-xs);
+  max-width: 480px;
+
+  label { font-size: v.$text-sm; font-weight: 500; color: v.$color-text-secondary; }
+  input { @include m.input-base; }
+}
+
+.exercises-config { @include m.flex(column, stretch, flex-start, v.$space-sm); }
+
+.config-row {
+  background: v.$color-bg-card;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-md;
+  padding: v.$space-md;
+  @include m.flex(column, stretch, flex-start, v.$space-md);
+
+  &__name {
+    font-size: v.$text-md;
+    font-weight: 600;
+  }
+
+  &__fields {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: v.$space-md;
+
+    @include m.mobile { grid-template-columns: repeat(2, 1fr); }
+  }
+}
+
+.field-label {
+  @include m.flex(column, flex-start, flex-start, v.$space-xs);
+  font-size: v.$text-xs;
+  color: v.$color-text-muted;
+  font-weight: 500;
+
+  input {
+    @include m.input-base;
+    font-size: v.$text-sm;
+    padding: 6px v.$space-sm;
+  }
+}
+
+.btn-primary { @include m.button-primary; }
+.btn-ghost { @include m.button-ghost; }

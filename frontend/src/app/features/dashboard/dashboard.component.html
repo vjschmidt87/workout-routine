@@ -1,0 +1,46 @@
+<div class="page">
+  <div class="page__header">
+    <h1 class="page__title">{{ tr.t('dashboard.title') }}, {{ auth.currentUser()?.name }}! 👋</h1>
+  </div>
+
+  <div class="dashboard">
+    <div class="dashboard__active">
+      <h2>{{ tr.t('dashboard.active-routine') }}</h2>
+      @if (activeRoutine()) {
+        <div class="active-card">
+          <div class="active-card__badge">{{ tr.t('routines.active') }}</div>
+          <h3>{{ activeRoutine()!.name }}</h3>
+          @if (activeRoutine()!.description) {
+            <p>{{ activeRoutine()!.description }}</p>
+          }
+          <span class="active-card__count">{{ activeRoutine()!.exercises.length }} {{ tr.t('routines.exercises-count') }}</span>
+          <a class="btn-primary" routerLink="/workout-builder">{{ tr.t('dashboard.start-workout') }}</a>
+        </div>
+      } @else {
+        <div class="empty-state">
+          <p>{{ tr.t('dashboard.no-active-routine') }}</p>
+          <a class="btn-primary" routerLink="/workout-builder">{{ tr.t('dashboard.create-routine') }}</a>
+        </div>
+      }
+    </div>
+
+    <div class="dashboard__recent">
+      <h2>{{ tr.t('dashboard.recent-routines') }}</h2>
+      @if (loading()) {
+        <p>{{ tr.t('common.loading') }}</p>
+      } @else if (routines().length === 0) {
+        <p>{{ tr.t('dashboard.no-routines') }}</p>
+      } @else {
+        <div class="routine-list">
+          @for (r of routines().slice(0, 5); track r.id) {
+            <a class="routine-item" routerLink="/routines">
+              <span class="routine-item__name">{{ r.name }}</span>
+              <span class="routine-item__count">{{ r.exercises.length }} {{ tr.t('routines.exercises-count') }}</span>
+              @if (r.active) { <span class="badge-active">{{ tr.t('routines.active') }}</span> }
+            </a>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

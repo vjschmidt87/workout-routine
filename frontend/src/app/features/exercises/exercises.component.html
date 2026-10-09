@@ -1,0 +1,49 @@
+<div class="page">
+  <div class="page__header">
+    <h1 class="page__title">{{ tr.t('exercises.title') }}</h1>
+  </div>
+
+  <div class="exercises-layout">
+    <aside class="filters">
+      <input class="search-input" type="text" [value]="search()"
+             (input)="search.set($any($event.target).value)"
+             [placeholder]="tr.t('exercises.search')" />
+
+      <div class="filter-section">
+        <h4>{{ tr.t('exercises.filter.muscles') }}</h4>
+        <div class="chips-grid">
+          @for (m of muscles; track m) {
+            <button class="filter-chip" [class.active]="selectedMuscles().includes(m)"
+                    (click)="toggleMuscle(m)">{{ tr.t('muscle.' + m) }}</button>
+          }
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h4>{{ tr.t('exercises.filter.equipment') }}</h4>
+        <div class="chips-grid">
+          @for (eq of equipmentKeys; track eq) {
+            <button class="filter-chip" [class.active]="selectedEquipment().includes(eq)"
+                    (click)="toggleEquipment(eq)">{{ tr.t('equipment.' + eq) }}</button>
+          }
+        </div>
+      </div>
+
+      @if (selectedMuscles().length || selectedEquipment().length || search()) {
+        <button class="btn-ghost" (click)="clearFilters()">Clear filters</button>
+      }
+    </aside>
+
+    <div class="exercises-grid">
+      @if (loading()) {
+        <p>{{ tr.t('common.loading') }}</p>
+      } @else if (filtered().length === 0) {
+        <p class="empty">{{ tr.t('exercises.empty') }}</p>
+      } @else {
+        @for (ex of filtered(); track ex.key) {
+          <app-exercise-card [exercise]="ex" />
+        }
+      }
+    </div>
+  </div>
+</div>

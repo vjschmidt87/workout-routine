@@ -1,0 +1,45 @@
+<div class="exercise-card" [class.exercise-card--selected]="selected" (click)="toggleExpand()">
+  <div class="exercise-card__header">
+    <div class="exercise-card__info">
+      <h3 class="exercise-card__name">{{ name }}</h3>
+      <div class="exercise-card__chips">
+        @for (m of exercise.muscles; track m) {
+          <span class="chip chip--muscle">{{ tr.t('muscle.' + m) }}</span>
+        }
+        <span class="chip" [class]="difficultyClass">{{ tr.t('difficulty.' + exercise.difficulty) }}</span>
+      </div>
+    </div>
+    @if (showAddButton) {
+      <button class="exercise-card__add" [class.added]="selected" (click)="onAdd($event)">
+        {{ selected ? tr.t('builder.added') : tr.t('builder.add') }}
+      </button>
+    }
+  </div>
+
+  <div class="exercise-card__equipment">
+    @for (eq of exercise.equipment; track eq) {
+      <span class="chip chip--equipment">{{ tr.t('equipment.' + eq) }}</span>
+    }
+  </div>
+
+  @if (expanded()) {
+    <div class="exercise-card__detail" (click)="$event.stopPropagation()">
+      @if (videoUrl) {
+        <div class="exercise-card__video">
+          <iframe [src]="videoUrl" frameborder="0" allowfullscreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+          </iframe>
+        </div>
+      }
+      <p class="exercise-card__instructions">{{ instructions }}</p>
+      @if (exercise.secondaryMuscles.length) {
+        <div class="exercise-card__secondary">
+          <span class="label">Secondary: </span>
+          @for (m of exercise.secondaryMuscles; track m) {
+            <span class="chip chip--secondary">{{ tr.t('muscle.' + m) }}</span>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

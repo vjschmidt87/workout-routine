@@ -1,0 +1,36 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-card__logo">💪</div>
+    <h1 class="auth-card__title">{{ tr.t('auth.signup.title') }}</h1>
+    <p class="auth-card__subtitle">{{ tr.t('auth.signup.subtitle') }}</p>
+
+    @if (error()) {
+      <div class="auth-card__error">{{ error() }}</div>
+    }
+
+    <div class="auth-card__form">
+      <div class="form-group">
+        <label>{{ tr.t('auth.name') }}</label>
+        <input type="text" [value]="name()" (input)="name.set($any($event.target).value)"
+               placeholder="John Doe" autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label>{{ tr.t('auth.email') }}</label>
+        <input type="email" [value]="email()" (input)="email.set($any($event.target).value)"
+               placeholder="you@example.com" autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label>{{ tr.t('auth.password') }}</label>
+        <input type="password" [value]="password()" (input)="password.set($any($event.target).value)"
+               placeholder="••••••••" autocomplete="new-password" (keyup.enter)="submit()" />
+      </div>
+      <button class="btn-primary" (click)="submit()" [disabled]="loading()">
+        {{ loading() ? tr.t('common.loading') : tr.t('auth.signup.submit') }}
+      </button>
+    </div>
+
+    <p class="auth-card__link">
+      <a routerLink="/login">{{ tr.t('auth.login.link') }}</a>
+    </p>
+  </div>
+</div>

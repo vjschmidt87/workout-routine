@@ -1,0 +1,120 @@
+<div class="muscle-map">
+  <div class="muscle-map__tabs">
+    <button class="muscle-map__tab" [class.active]="isFront()" (click)="setView('front')">Front</button>
+    <button class="muscle-map__tab" [class.active]="!isFront()" (click)="setView('back')">Back</button>
+  </div>
+
+  <div class="muscle-map__svg-wrap">
+    @if (isFront()) {
+      <!-- FRONT VIEW -->
+      <svg viewBox="0 0 200 420" xmlns="http://www.w3.org/2000/svg" class="muscle-map__svg">
+        <!-- Neck -->
+        <path class="muscle-path" [class.selected]="isSelected('NECK')" (click)="toggle('NECK')"
+              d="M88 42 Q88 58 100 60 Q112 58 112 42 Q106 38 100 37 Q94 38 88 42Z" />
+        <!-- Head outline (non-interactive) -->
+        <ellipse cx="100" cy="24" rx="18" ry="22" fill="#1e2035" stroke="#3a3d6b" stroke-width="1.5" />
+        <!-- Chest -->
+        <path class="muscle-path" [class.selected]="isSelected('CHEST')" (click)="toggle('CHEST')"
+              d="M68 78 Q68 108 80 118 Q88 122 100 120 Q112 122 120 118 Q132 108 132 78 Q118 65 100 64 Q82 65 68 78Z" />
+        <!-- Left shoulder -->
+        <path class="muscle-path" [class.selected]="isSelected('SHOULDERS')" (click)="toggle('SHOULDERS')"
+              d="M55 70 Q42 75 38 90 Q36 105 44 112 Q54 118 65 112 Q72 104 68 88 Q65 76 55 70Z" />
+        <!-- Right shoulder -->
+        <path class="muscle-path" [class.selected]="isSelected('SHOULDERS')" (click)="toggle('SHOULDERS')"
+              d="M145 70 Q158 75 162 90 Q164 105 156 112 Q146 118 135 112 Q128 104 132 88 Q135 76 145 70Z" />
+        <!-- Left bicep -->
+        <path class="muscle-path" [class.selected]="isSelected('BICEPS')" (click)="toggle('BICEPS')"
+              d="M42 115 Q33 120 30 135 Q28 152 36 160 Q46 166 55 158 Q63 148 60 130 Q58 118 42 115Z" />
+        <!-- Right bicep -->
+        <path class="muscle-path" [class.selected]="isSelected('BICEPS')" (click)="toggle('BICEPS')"
+              d="M158 115 Q167 120 170 135 Q172 152 164 160 Q154 166 145 158 Q137 148 140 130 Q142 118 158 115Z" />
+        <!-- Left forearm -->
+        <path class="muscle-path" [class.selected]="isSelected('FOREARMS')" (click)="toggle('FOREARMS')"
+              d="M34 162 Q26 170 26 188 Q27 205 36 210 Q46 214 54 206 Q60 196 58 178 Q56 164 34 162Z" />
+        <!-- Right forearm -->
+        <path class="muscle-path" [class.selected]="isSelected('FOREARMS')" (click)="toggle('FOREARMS')"
+              d="M166 162 Q174 170 174 188 Q173 205 164 210 Q154 214 146 206 Q140 196 142 178 Q144 164 166 162Z" />
+        <!-- Abs -->
+        <path class="muscle-path" [class.selected]="isSelected('ABS')" (click)="toggle('ABS')"
+              d="M83 122 Q82 145 84 170 Q88 185 100 186 Q112 185 116 170 Q118 145 117 122 Q108 126 100 126 Q92 126 83 122Z" />
+        <!-- Obliques -->
+        <path class="muscle-path" [class.selected]="isSelected('OBLIQUES')" (click)="toggle('OBLIQUES')"
+              d="M68 118 Q60 128 62 148 Q64 164 75 170 Q82 172 84 162 Q84 142 83 122Z" />
+        <path class="muscle-path" [class.selected]="isSelected('OBLIQUES')" (click)="toggle('OBLIQUES')"
+              d="M132 118 Q140 128 138 148 Q136 164 125 170 Q118 172 116 162 Q116 142 117 122Z" />
+        <!-- Left quad -->
+        <path class="muscle-path" [class.selected]="isSelected('QUADS')" (click)="toggle('QUADS')"
+              d="M72 200 Q62 210 60 235 Q58 260 66 278 Q74 290 86 290 Q96 288 98 272 Q100 248 96 220 Q90 204 72 200Z" />
+        <!-- Right quad -->
+        <path class="muscle-path" [class.selected]="isSelected('QUADS')" (click)="toggle('QUADS')"
+              d="M128 200 Q138 210 140 235 Q142 260 134 278 Q126 290 114 290 Q104 288 102 272 Q100 248 104 220 Q110 204 128 200Z" />
+        <!-- Left calf -->
+        <path class="muscle-path" [class.selected]="isSelected('CALVES')" (click)="toggle('CALVES')"
+              d="M66 300 Q58 310 58 330 Q58 350 66 360 Q74 368 82 364 Q90 356 90 336 Q90 314 84 302 Q76 296 66 300Z" />
+        <!-- Right calf -->
+        <path class="muscle-path" [class.selected]="isSelected('CALVES')" (click)="toggle('CALVES')"
+              d="M134 300 Q142 310 142 330 Q142 350 134 360 Q126 368 118 364 Q110 356 110 336 Q110 314 116 302 Q124 296 134 300Z" />
+        <!-- Left tricep (partially visible front) -->
+        <path class="muscle-path" [class.selected]="isSelected('TRICEPS')" (click)="toggle('TRICEPS')"
+              d="M58 115 Q52 125 50 140 Q50 155 56 162 Q58 148 60 130Z" />
+        <!-- Right tricep (partially visible front) -->
+        <path class="muscle-path" [class.selected]="isSelected('TRICEPS')" (click)="toggle('TRICEPS')"
+              d="M142 115 Q148 125 150 140 Q150 155 144 162 Q142 148 140 130Z" />
+      </svg>
+    } @else {
+      <!-- BACK VIEW -->
+      <svg viewBox="0 0 200 420" xmlns="http://www.w3.org/2000/svg" class="muscle-map__svg">
+        <!-- Head outline (non-interactive) -->
+        <ellipse cx="100" cy="24" rx="18" ry="22" fill="#1e2035" stroke="#3a3d6b" stroke-width="1.5" />
+        <!-- Neck back -->
+        <path class="muscle-path" [class.selected]="isSelected('NECK')" (click)="toggle('NECK')"
+              d="M88 42 Q88 58 100 60 Q112 58 112 42 Q106 38 100 37 Q94 38 88 42Z" />
+        <!-- Traps -->
+        <path class="muscle-path" [class.selected]="isSelected('TRAPS')" (click)="toggle('TRAPS')"
+              d="M68 62 Q60 70 56 82 Q58 95 70 100 Q82 104 100 102 Q118 104 130 100 Q142 95 144 82 Q140 70 132 62 Q116 56 100 55 Q84 56 68 62Z" />
+        <!-- Left shoulder back -->
+        <path class="muscle-path" [class.selected]="isSelected('SHOULDERS')" (click)="toggle('SHOULDERS')"
+              d="M55 70 Q42 75 38 90 Q36 105 44 112 Q54 118 65 112 Q72 104 68 88 Q65 76 55 70Z" />
+        <!-- Right shoulder back -->
+        <path class="muscle-path" [class.selected]="isSelected('SHOULDERS')" (click)="toggle('SHOULDERS')"
+              d="M145 70 Q158 75 162 90 Q164 105 156 112 Q146 118 135 112 Q128 104 132 88 Q135 76 145 70Z" />
+        <!-- Upper/mid back -->
+        <path class="muscle-path" [class.selected]="isSelected('BACK')" (click)="toggle('BACK')"
+              d="M72 102 Q68 118 70 138 Q74 152 86 160 Q94 164 100 163 Q106 164 114 160 Q126 152 130 138 Q132 118 128 102 Q114 108 100 108 Q86 108 72 102Z" />
+        <!-- Lats left -->
+        <path class="muscle-path" [class.selected]="isSelected('LATS')" (click)="toggle('LATS')"
+              d="M64 112 Q55 122 54 140 Q54 158 64 166 Q74 172 80 164 Q72 150 70 135 Q68 120 72 102Z" />
+        <!-- Lats right -->
+        <path class="muscle-path" [class.selected]="isSelected('LATS')" (click)="toggle('LATS')"
+              d="M136 112 Q145 122 146 140 Q146 158 136 166 Q126 172 120 164 Q128 150 130 135 Q132 120 128 102Z" />
+        <!-- Left tricep -->
+        <path class="muscle-path" [class.selected]="isSelected('TRICEPS')" (click)="toggle('TRICEPS')"
+              d="M42 115 Q33 120 30 135 Q28 152 36 160 Q46 166 55 158 Q63 148 60 130 Q58 118 42 115Z" />
+        <!-- Right tricep -->
+        <path class="muscle-path" [class.selected]="isSelected('TRICEPS')" (click)="toggle('TRICEPS')"
+              d="M158 115 Q167 120 170 135 Q172 152 164 160 Q154 166 145 158 Q137 148 140 130 Q142 118 158 115Z" />
+        <!-- Left forearm back -->
+        <path class="muscle-path" [class.selected]="isSelected('FOREARMS')" (click)="toggle('FOREARMS')"
+              d="M34 162 Q26 170 26 188 Q27 205 36 210 Q46 214 54 206 Q60 196 58 178 Q56 164 34 162Z" />
+        <!-- Right forearm back -->
+        <path class="muscle-path" [class.selected]="isSelected('FOREARMS')" (click)="toggle('FOREARMS')"
+              d="M166 162 Q174 170 174 188 Q173 205 164 210 Q154 214 146 206 Q140 196 142 178 Q144 164 166 162Z" />
+        <!-- Lower back / glutes -->
+        <path class="muscle-path" [class.selected]="isSelected('GLUTES')" (click)="toggle('GLUTES')"
+              d="M74 168 Q66 180 66 200 Q68 218 80 224 Q90 228 100 226 Q110 228 120 224 Q132 218 134 200 Q134 180 126 168 Q112 175 100 175 Q88 175 74 168Z" />
+        <!-- Left hamstring -->
+        <path class="muscle-path" [class.selected]="isSelected('HAMSTRINGS')" (click)="toggle('HAMSTRINGS')"
+              d="M70 228 Q60 238 58 262 Q56 284 64 298 Q74 308 86 304 Q96 298 98 278 Q100 254 94 232 Q84 224 70 228Z" />
+        <!-- Right hamstring -->
+        <path class="muscle-path" [class.selected]="isSelected('HAMSTRINGS')" (click)="toggle('HAMSTRINGS')"
+              d="M130 228 Q140 238 142 262 Q144 284 136 298 Q126 308 114 304 Q104 298 102 278 Q100 254 106 232 Q116 224 130 228Z" />
+        <!-- Left calf back -->
+        <path class="muscle-path" [class.selected]="isSelected('CALVES')" (click)="toggle('CALVES')"
+              d="M66 310 Q58 320 58 340 Q58 358 66 368 Q74 374 82 370 Q90 362 90 342 Q90 320 84 308 Q76 302 66 310Z" />
+        <!-- Right calf back -->
+        <path class="muscle-path" [class.selected]="isSelected('CALVES')" (click)="toggle('CALVES')"
+              d="M134 310 Q142 320 142 340 Q142 358 134 368 Q126 374 118 370 Q110 362 110 342 Q110 320 116 308 Q124 302 134 310Z" />
+      </svg>
+    }
+  </div>
+</div>

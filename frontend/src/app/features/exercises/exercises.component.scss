@@ -1,0 +1,57 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.page { padding: v.$space-xl v.$space-lg; }
+
+.exercises-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: v.$space-xl;
+  align-items: flex-start;
+
+  @include m.mobile { grid-template-columns: 1fr; }
+}
+
+.filters {
+  @include m.flex(column, stretch, flex-start, v.$space-lg);
+  position: sticky;
+  top: v.$space-xl;
+}
+
+.search-input { @include m.input-base; }
+
+.filter-section {
+  @include m.flex(column, stretch, flex-start, v.$space-sm);
+
+  h4 { font-size: v.$text-sm; color: v.$color-text-secondary; font-weight: 500; }
+}
+
+.chips-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$space-xs;
+}
+
+.filter-chip {
+  @include m.chip;
+  cursor: pointer;
+  border: none;
+  transition: background 120ms ease, color 120ms ease;
+
+  &.active {
+    background: rgba(v.$color-primary, 0.15);
+    color: v.$color-primary;
+  }
+}
+
+.exercises-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: v.$space-md;
+
+  @include m.mobile { grid-template-columns: 1fr; }
+}
+
+.empty { color: v.$color-text-secondary; }
+
+.btn-ghost { @include m.button-ghost; }

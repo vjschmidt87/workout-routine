@@ -1,0 +1,29 @@
+<div class="page">
+  <div class="page__header">
+    <h1 class="page__title">{{ tr.t('equipment.title') }}</h1>
+    <p class="page__subtitle">{{ tr.t('equipment.subtitle') }}</p>
+  </div>
+
+  @if (loading()) {
+    <p>{{ tr.t('common.loading') }}</p>
+  } @else {
+    <div class="equipment-sections">
+      @for (cat of categories; track cat) {
+        <section class="equipment-section">
+          <h2>{{ cat }}</h2>
+          <div class="equipment-grid">
+            @for (opt of optionsByCategory(cat); track opt.name) {
+              <button class="equipment-item" [class.owned]="isOwned(opt.name)" (click)="toggle(opt)">
+                <div class="equipment-item__img" [innerHTML]="svgIcon(opt.name)"></div>
+                <span class="equipment-item__name">{{ opt.name }}</span>
+                <span class="equipment-item__check">
+                  @if (isOwned(opt.name)) { ✓ } @else { + }
+                </span>
+              </button>
+            }
+          </div>
+        </section>
+      }
+    </div>
+  }
+</div>

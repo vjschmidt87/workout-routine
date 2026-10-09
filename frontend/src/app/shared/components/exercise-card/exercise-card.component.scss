@@ -1,0 +1,100 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.exercise-card {
+  @include m.card;
+  cursor: pointer;
+  user-select: none;
+
+  &--selected {
+    border-color: v.$color-primary;
+    background: rgba(v.$color-primary, 0.05);
+  }
+
+  &__header {
+    @include m.flex(row, flex-start, space-between, v.$space-md);
+  }
+
+  &__info { flex: 1; @include m.flex(column, stretch, flex-start, v.$space-sm); }
+
+  &__name {
+    font-size: v.$text-md;
+    font-weight: 600;
+    margin: 0;
+    color: v.$color-text-primary;
+  }
+
+  &__chips {
+    @include m.flex(row, center, flex-start);
+    flex-wrap: wrap;
+    gap: v.$space-xs;
+  }
+
+  &__equipment {
+    @include m.flex(row, center, flex-start);
+    flex-wrap: wrap;
+    gap: v.$space-xs;
+    margin-top: v.$space-sm;
+  }
+
+  &__add {
+    @include m.button-primary;
+    padding: 6px v.$space-md;
+    font-size: v.$text-sm;
+    flex-shrink: 0;
+    align-self: flex-start;
+
+    &.added {
+      background: v.$color-success;
+    }
+  }
+
+  &__detail {
+    margin-top: v.$space-md;
+    border-top: 1px solid v.$color-border;
+    padding-top: v.$space-md;
+    @include m.flex(column, stretch, flex-start, v.$space-md);
+  }
+
+  &__video {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    border-radius: v.$radius-md;
+    overflow: hidden;
+
+    iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border-radius: v.$radius-md;
+    }
+  }
+
+  &__instructions {
+    font-size: v.$text-sm;
+    color: v.$color-text-secondary;
+    line-height: 1.7;
+  }
+
+  &__secondary {
+    @include m.flex(row, center, flex-start, v.$space-xs);
+    flex-wrap: wrap;
+
+    .label { font-size: v.$text-xs; color: v.$color-text-muted; }
+  }
+}
+
+.chip {
+  @include m.chip;
+
+  &--muscle { background: rgba(v.$color-primary, 0.15); color: v.$color-primary; }
+  &--equipment { background: v.$color-bg-elevated; color: v.$color-text-secondary; border: 1px solid v.$color-border; }
+  &--secondary { background: rgba(v.$color-accent, 0.12); color: v.$color-accent; }
+}
+
+.difficulty {
+  &--beginner { background: rgba(v.$color-difficulty-beginner, 0.15); color: v.$color-difficulty-beginner; border-radius: v.$radius-full; display: inline-flex; padding: 3px 10px; font-size: v.$text-xs; font-weight: 600; }
+  &--intermediate { background: rgba(v.$color-difficulty-intermediate, 0.15); color: v.$color-difficulty-intermediate; border-radius: v.$radius-full; display: inline-flex; padding: 3px 10px; font-size: v.$text-xs; font-weight: 600; }
+  &--advanced { background: rgba(v.$color-difficulty-advanced, 0.15); color: v.$color-difficulty-advanced; border-radius: v.$radius-full; display: inline-flex; padding: 3px 10px; font-size: v.$text-xs; font-weight: 600; }
+}

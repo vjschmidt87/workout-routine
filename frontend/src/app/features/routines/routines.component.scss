@@ -1,0 +1,57 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.page {
+  padding: v.$space-xl v.$space-lg;
+
+  &__header {
+    @include m.flex(row, center, space-between);
+    margin-bottom: v.$space-xl;
+  }
+}
+
+.routines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: v.$space-lg;
+}
+
+.routine-card {
+  @include m.card;
+  @include m.flex(column, flex-start, flex-start, v.$space-sm);
+
+  &--active { border-color: v.$color-success; }
+
+  &__badge { @include m.chip(v.$color-success); margin-bottom: v.$space-xs; }
+
+  h3 { font-size: v.$text-lg; font-weight: 700; margin: 0; }
+  p { color: v.$color-text-secondary; font-size: v.$text-sm; }
+
+  &__meta {
+    @include m.flex(row, center, flex-start, v.$space-md);
+    font-size: v.$text-xs;
+    color: v.$color-text-muted;
+    margin-top: auto;
+    padding-top: v.$space-sm;
+  }
+
+  &__actions {
+    @include m.flex(row, center, flex-start, v.$space-sm);
+    flex-wrap: wrap;
+    border-top: 1px solid v.$color-border;
+    padding-top: v.$space-sm;
+    width: 100%;
+    margin-top: v.$space-sm;
+  }
+}
+
+.btn-primary { @include m.button-primary; }
+.btn-ghost { @include m.button-ghost; font-size: v.$text-xs; padding: 6px v.$space-sm; }
+.btn-danger { @include m.button-danger; font-size: v.$text-xs; padding: 6px v.$space-sm; }
+
+.empty-state {
+  @include m.flex(column, center, center, v.$space-md);
+  padding: v.$space-2xl;
+  text-align: center;
+  p { color: v.$color-text-secondary; }
+}
